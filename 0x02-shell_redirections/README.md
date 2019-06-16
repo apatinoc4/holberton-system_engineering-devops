@@ -1,1 +1,1 @@
-Pro
+Shell Permissions and command redirecting
