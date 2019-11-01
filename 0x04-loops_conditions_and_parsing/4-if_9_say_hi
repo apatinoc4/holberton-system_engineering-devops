@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # 4-if_9_say_hi:"Holberton School" 10 times, Hi in 9th
 
-i=1
+i=0
 
-until [ $i -le 10 ]
+while [ $i -le 10 ]
   do if [ $i !=  9 ]
   then
     echo "Holberton School"
