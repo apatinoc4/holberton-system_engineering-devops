@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# 8-for_ls: displays the contents of cwd in a list format with only the part
+#+ of the file name after the dash. yeah.
+
+for file in *; do
+    echo "$file" | cut -d '-' -f2
+done
