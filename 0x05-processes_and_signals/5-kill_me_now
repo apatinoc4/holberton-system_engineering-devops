@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#Write a Bash script that kills 4-to_infinity_and_beyond process
+
+OUTPUT=$(pgrep -f ./4-to_infinity_and_beyond)
+for LINE in $OUTPUT; do
+    kill "$LINE"
+done
