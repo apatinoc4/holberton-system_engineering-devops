@@ -1,0 +1,5 @@
+Host *
+    IdentityFile ~/.ssh/holberton
+    PasswordAuthentication no
+    BatchMode yes
+    
