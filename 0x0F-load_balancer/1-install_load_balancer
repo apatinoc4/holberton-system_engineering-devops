@@ -4,5 +4,8 @@
 
 apt-get update
 apt-get -y install haproxy
-printf "\nfrontend web_frontend\n\tbind *:80\n\tmode http\n\tdefault_backend web_backend\nbackend web_backend\n\tbalance roundrobin\n\tmode http\n\tserver 863-web-01 34.74.135.225\n\tserver 863-web-02 35.196.217.180\n" >> /etc/haproxy/haproxy.cfg
+sed -i "s/ENABLED=0/ENABLED=1/g" /etc/default/haproxy
+sed -i "\$ a\listen 863-lb-01\n\tbind *:80\n\tmode http\n\tstats enable\n\tbalance roundrobin\n\tserver 863-web-01 34.74.135.225:80 check\n\tserver 863-web-02 35.196.217.180:80 check" /etc/haproxy/haproxy.cfg
+service haproxy start
+
 service haproxy start
