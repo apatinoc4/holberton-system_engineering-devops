@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Configure your domain zone
+
+info_display ()
+{
+	ret=( $(dig "$2.$1" | awk '/;; ANSWER SECTION:/{getline; print $4,$5}') )
+	rec=${ret[0]}
+	dest=${ret[1]}
+	echo "The subdomain $2 is a $rec record and points to $dest"
+}
+if [ "$#" -eq 2 ]; then
+	info_display "$1" "$2"
+elif [ "$#" -eq 1 ]; then
+	info_display "$1" www
+	info_display "$1" lb-01
+	info_display "$1" web-01
+	info_display "$1" web-02
+fi
