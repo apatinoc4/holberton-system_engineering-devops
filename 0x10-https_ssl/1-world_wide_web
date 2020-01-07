@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
-# Configure your domain zone
+# Configure your subdomain
+domain=$1
 
-info_display ()
-{
-	ret=( $(dig "$2.$1" | awk '/;; ANSWER SECTION:/{getline; print $4,$5}') )
-	rec=${ret[0]}
-	dest=${ret[1]}
-	echo "The subdomain $2 is a $rec record and points to $dest"
-}
 if [ "$#" -eq 2 ]; then
-	info_display "$1" "$2"
-elif [ "$#" -eq 1 ]; then
-	info_display "$1" www
-	info_display "$1" lb-01
-	info_display "$1" web-01
-	info_display "$1" web-02
+    subdomain=$2
+else
+    subdomain=("www" "lb-01" "web-01" "web-02")
 fi
+
+for sub in "${subdomain[@]}";
+do
+    echo -n "The subdomain $sub"
+    dig "$sub.$domain" | grep -A1 'ANSWER SECTION:' | tail -n -1 | awk '{print " is a " $4 " record and points to " $5}'
+done
